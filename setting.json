@@ -1,10 +1,9 @@
 {
     "meta": {
-        "version": "1.0.3/1",
+        "version": "1.0.3/1;workstack=8",
         "admin": "",
         "defaultHosting": ""
     },
-    "hosting": [],
     "env": {
         "management": {
             "api": {
@@ -75,7 +74,7 @@
         },
         "properties": {
             "memoryUsage": {
-                "totalUsableRatio": 100,
+                "totalUsableRatio": 80,
                 "workingRatio": 60,
                 "partition": "1:1"
             },
@@ -259,32 +258,32 @@
                 "byOriginal": []
             },
             "denc": {
-                "chunk": {
+                "meta": {
                     "enable": false,
-                    "keyword": "denchunk",
+                    "keyword": "denc"
+                },
+                "chunk": {
+                    "encrypt": {
+                        "algorithm": "aes-128-cbc",
+                        "iv": "",
+                        "token": "",
+                        "key": "$token",
+                        "keyHash": "none"
+                    },
                     "sampling": {
                         "enable": false,
                         "segmentSize": 1048576,
                         "offset": 0,
                         "encryptSize": 16384
-                    },
-                    "encryption": {
-                        "algorithm": "RC4",
-                        "iv": "",
-                        "token": "",
-                        "key": "$Token",
-                        "keyHash": "none"
                     }
                 },
                 "bulk": {
-                    "enable": false,
-                    "keyword": "dencbulk",
                     "maxSourceSize": 500,
                     "encrypt": {
                         "algorithm": "RC4",
                         "iv": "",
                         "token": "",
-                        "key": "$Token",
+                        "key": "$token",
                         "keyHash": "none"
                     }
                 }
@@ -747,14 +746,15 @@
                         }
                     },
                     "compression": {
-                        "meta": {
-                            "enable": false,
-                            "keyword": "hcpr",
-                            "minSrcSize": 2,
-                            "maxSrcSize": 2048
-                        },
+                        "enable": false,
+                        "minSrcSize": 2,
+                        "maxSrcSize": 2048,
                         "gzip": {
                             "level": 6
+                        },
+                        "brotli": {
+                            "window": 22,
+                            "quality": 11
                         }
                     },
                     "customErrorPage": {
@@ -846,7 +846,7 @@
         "operations": {
             "log": {
                 "meta": {
-                    "dir": "/m2log"
+                    "dir": "/m2live_log"
                 },
                 "access": {
                     "enable": true,
@@ -910,5 +910,6 @@
                 "endpoints": []
             }
         }
-    }
+    },
+    "hosting": []
 }
