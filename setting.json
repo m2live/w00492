@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.3/1;workstack=10",
+        "version": "1.0.3/1;workstack=14",
         "admin": "",
         "defaultHosting": ""
     },
@@ -914,53 +914,53 @@
     "hosting": [
         {
             "listen": "*:80",
+            "origin": {
+                "protocol": "http",
+                "address": [
+                    "www.winesoft.co.kr"
+                ]
+            },
+            "name": "158.247.203.38",
             "functions": {
                 "contents": {
-                    "unzip": {
-                        "meta": {
-                            "keyword": "unzip",
-                            "enable": true
-                        }
-                    },
                     "denc": {
                         "bulk": {
                             "enable": true,
                             "keyword": "dencbulk"
                         },
                         "meta": {
-                            "enable": true,
-                            "keyword": "denc"
-                        }
-                    },
-                    "dims": {
-                        "meta": {
-                            "keyword": "dims",
-                            "enable": true,
-                            "maxSourceSize": 2,
-                            "minSourceSize": 0
+                            "keyword": "denc",
+                            "enable": true
                         }
                     },
                     "epubedit": {
-                        "trim": {
-                            "prefix": []
-                        },
                         "archive": {
                             "enable": true,
                             "rules": []
                         },
                         "meta": {
-                            "keyword": "epubedit1",
+                            "keyword": "epubedit3",
+                            "enable": true
+                        },
+                        "trim": {
+                            "prefix": []
+                        }
+                    },
+                    "dims": {
+                        "meta": {
+                            "enable": true,
+                            "maxSourceSize": 2,
+                            "minSourceSize": 0,
+                            "keyword": "dims"
+                        }
+                    },
+                    "unzip": {
+                        "meta": {
+                            "keyword": "unzip",
                             "enable": true
                         }
                     }
                 }
-            },
-            "name": "158.247.203.38",
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "www.winesoft.co.kr"
-                ]
             },
             "enable": true
         }
