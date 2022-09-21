@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.4/1;workstack=27",
+        "version": "1.0.4/1;workstack=28",
         "admin": "",
         "defaultHosting": ""
     },
@@ -917,5 +917,59 @@
                 "endpoints": []
             }
         }
-    }
+    },
+    "hosting": [
+        {
+            "listen": "*:80",
+            "origin": {
+                "address": [
+                    "www.winesoft.co.kr"
+                ],
+                "protocol": "http"
+            },
+            "functions": {
+                "contents": {
+                    "epubedit": {
+                        "archive": {
+                            "enable": true,
+                            "rules": []
+                        },
+                        "meta": {
+                            "enable": true,
+                            "keyword": "epubedit"
+                        },
+                        "trim": {
+                            "prefix": []
+                        }
+                    },
+                    "unzip": {
+                        "meta": {
+                            "keyword": "unzip",
+                            "enable": true
+                        }
+                    },
+                    "dims": {
+                        "meta": {
+                            "maxSourceSize": 2,
+                            "keyword": "dims",
+                            "minSourceSize": 0,
+                            "enable": true
+                        }
+                    },
+                    "denc": {
+                        "bulk": {
+                            "keyword": "dencbulk",
+                            "enable": true
+                        },
+                        "meta": {
+                            "keyword": "denc",
+                            "enable": true
+                        }
+                    }
+                }
+            },
+            "name": "158.247.203.38",
+            "enable": true
+        }
+    ]
 }
