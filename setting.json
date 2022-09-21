@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.4/1;workstack=28",
+        "version": "1.0.3/1;workstack=18",
         "admin": "",
         "defaultHosting": ""
     },
@@ -365,7 +365,7 @@
                     },
                     "out": {
                         "at": null,
-                        "escaped": true
+                        "escpaed": true
                     }
                 },
                 "dom": {
@@ -418,7 +418,7 @@
                     "sizeLimit": {
                         "enable": true,
                         "max": 1048576,
-                        "timing": "preprocess"
+                        "timing": "download"
                     }
                 }
             },
@@ -483,11 +483,8 @@
                     "rebound": {
                         "domain": null,
                         "tags": {
-                            "domain": null,
-                            "targets": [
-                                "script.src",
-                                "link.href"
-                            ]
+                            "domain": "bar.com",
+                            "targets": []
                         }
                     },
                     "resource": {
@@ -827,10 +824,6 @@
                             "enable": false,
                             "matchFirstOnly": false,
                             "matchingList": []
-                        },
-                        "forwardContextId": {
-                            "enable": false,
-                            "header": "X-M2X-Forwarded-Context-Id"
                         }
                     },
                     "authorization": {
@@ -922,24 +915,43 @@
         {
             "listen": "*:80",
             "origin": {
+                "protocol": "http",
                 "address": [
                     "www.winesoft.co.kr"
-                ],
-                "protocol": "http"
+                ]
             },
+            "name": "158.247.203.38",
             "functions": {
                 "contents": {
+                    "denc": {
+                        "bulk": {
+                            "enable": true,
+                            "keyword": "dencbulk"
+                        },
+                        "meta": {
+                            "keyword": "denc",
+                            "enable": true
+                        }
+                    },
                     "epubedit": {
                         "archive": {
                             "enable": true,
                             "rules": []
                         },
                         "meta": {
-                            "enable": true,
-                            "keyword": "epubedit"
+                            "keyword": "epubedit3",
+                            "enable": true
                         },
                         "trim": {
                             "prefix": []
+                        }
+                    },
+                    "dims": {
+                        "meta": {
+                            "enable": true,
+                            "maxSourceSize": 2,
+                            "minSourceSize": 0,
+                            "keyword": "dims"
                         }
                     },
                     "unzip": {
@@ -947,28 +959,9 @@
                             "keyword": "unzip",
                             "enable": true
                         }
-                    },
-                    "dims": {
-                        "meta": {
-                            "maxSourceSize": 2,
-                            "keyword": "dims",
-                            "minSourceSize": 0,
-                            "enable": true
-                        }
-                    },
-                    "denc": {
-                        "bulk": {
-                            "keyword": "dencbulk",
-                            "enable": true
-                        },
-                        "meta": {
-                            "keyword": "denc",
-                            "enable": true
-                        }
                     }
                 }
             },
-            "name": "158.247.203.38",
             "enable": true
         }
     ]
