@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.3/1;workstack=18",
+        "version": "1.0.5/1;workstack=31",
         "admin": "",
         "defaultHosting": ""
     },
@@ -365,7 +365,7 @@
                     },
                     "out": {
                         "at": null,
-                        "escpaed": true
+                        "escaped": true
                     }
                 },
                 "dom": {
@@ -418,7 +418,7 @@
                     "sizeLimit": {
                         "enable": true,
                         "max": 1048576,
-                        "timing": "download"
+                        "timing": "preprocess"
                     }
                 }
             },
@@ -483,8 +483,11 @@
                     "rebound": {
                         "domain": null,
                         "tags": {
-                            "domain": "bar.com",
-                            "targets": []
+                            "domain": null,
+                            "targets": [
+                                "script.src",
+                                "link.href"
+                            ]
                         }
                     },
                     "resource": {
@@ -824,6 +827,10 @@
                             "enable": false,
                             "matchFirstOnly": false,
                             "matchingList": []
+                        },
+                        "forwardContextId": {
+                            "enable": false,
+                            "header": "X-M2X-Forwarded-Context-Id"
                         }
                     },
                     "authorization": {
@@ -910,59 +917,5 @@
                 "endpoints": []
             }
         }
-    },
-    "hosting": [
-        {
-            "listen": "*:80",
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "www.winesoft.co.kr"
-                ]
-            },
-            "name": "158.247.203.38",
-            "functions": {
-                "contents": {
-                    "denc": {
-                        "bulk": {
-                            "enable": true,
-                            "keyword": "dencbulk"
-                        },
-                        "meta": {
-                            "keyword": "denc",
-                            "enable": true
-                        }
-                    },
-                    "epubedit": {
-                        "archive": {
-                            "enable": true,
-                            "rules": []
-                        },
-                        "meta": {
-                            "keyword": "epubedit3",
-                            "enable": true
-                        },
-                        "trim": {
-                            "prefix": []
-                        }
-                    },
-                    "dims": {
-                        "meta": {
-                            "enable": true,
-                            "maxSourceSize": 2,
-                            "minSourceSize": 0,
-                            "keyword": "dims"
-                        }
-                    },
-                    "unzip": {
-                        "meta": {
-                            "keyword": "unzip",
-                            "enable": true
-                        }
-                    }
-                }
-            },
-            "enable": true
-        }
-    ]
+    }
 }
