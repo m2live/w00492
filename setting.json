@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.4/1;workstack=35",
+        "version": "1.0.3/1;workstack=18",
         "admin": "",
         "defaultHosting": ""
     },
@@ -365,7 +365,7 @@
                     },
                     "out": {
                         "at": null,
-                        "escaped": true
+                        "escpaed": true
                     }
                 },
                 "dom": {
@@ -418,7 +418,7 @@
                     "sizeLimit": {
                         "enable": true,
                         "max": 1048576,
-                        "timing": "preprocess"
+                        "timing": "download"
                     }
                 }
             },
@@ -483,11 +483,8 @@
                     "rebound": {
                         "domain": null,
                         "tags": {
-                            "domain": null,
-                            "targets": [
-                                "script.src",
-                                "link.href"
-                            ]
+                            "domain": "bar.com",
+                            "targets": []
                         }
                     },
                     "resource": {
@@ -827,10 +824,6 @@
                             "enable": false,
                             "matchFirstOnly": false,
                             "matchingList": []
-                        },
-                        "forwardContextId": {
-                            "enable": false,
-                            "header": "X-M2X-Forwarded-Context-Id"
                         }
                     },
                     "authorization": {
@@ -921,142 +914,53 @@
     "hosting": [
         {
             "listen": "*:80",
-            "functions": {
-                "contents": {
-                    "dims": {
-                        "meta": {
-                            "enable": true,
-                            "keyword": "dims",
-                            "maxSourceSize": 2,
-                            "minSourceSize": 0
-                        }
-                    }
-                },
-                "network": {
-                    "http": {
-                        "backEnd": {
-                            "session": {
-                                "connectTimeout": 3,
-                                "receiveTimeout": 300,
-                                "reuseTimeout": 60,
-                                "busyCount": 0
-                            },
-                            "health": {
-                                "exclusion": {
-                                    "count": 0
-                                }
-                            },
-                            "headers": {
-                                "host": {
-                                    "enable": true,
-                                    "value": "www.winesoft.co.kr.origin.m2"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "origin": {
-                "address": [
-                    "127.0.0.1"
-                ],
-                "protocol": "http"
-            },
-            "name": "www.winesoft.co.kr",
-            "enable": true
-        },
-        {
-            "listen": "*:80",
-            "name": "www.winesoft.co.kr.origin.m2",
-            "functions": {
-                "network": {
-                    "http": {
-                        "backEnd": {
-                            "headers": {
-                                "host": {
-                                    "enable": true,
-                                    "value": "www.winesoft.co.kr.first.origin.m2"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "origin": {
-                "address": [
-                    "127.0.0.1"
-                ],
-                "protocol": "http"
-            },
-            "mode": {
-                "instant": true
-            },
-            "enable": true
-        },
-        {
-            "listen": "*:80",
-            "fallbacks": {
-                "matchingList": [
-                    {
-                        "resCodes": [
-                            "4xx",
-                            "5xx"
-                        ],
-                        "replace": "www.winesoft.co.kr.second.origin.m2/#1",
-                        "pattern": "$URL[/(.*)]"
-                    }
-                ],
-                "enable": true
-            },
-            "name": "www.winesoft.co.kr.first.origin.m2",
-            "origin": {
-                "address": [],
-                "protocol": "http"
-            },
-            "functions": {
-                "network": {
-                    "http": {
-                        "backEnd": {
-                            "headers": {
-                                "host": {
-                                    "value": "www.winesoft.co.kr",
-                                    "enable": true
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "mode": {
-                "instant": true
-            },
-            "enable": true
-        },
-        {
-            "listen": "*:80",
             "origin": {
                 "protocol": "http",
                 "address": [
-                    "www.google.com"
+                    "www.winesoft.co.kr"
                 ]
             },
-            "name": "www.winesoft.co.kr.second.origin.m2",
+            "name": "158.247.203.38",
             "functions": {
-                "network": {
-                    "http": {
-                        "backEnd": {
-                            "headers": {
-                                "host": {
-                                    "value": "www.winesoft.co.kr",
-                                    "enable": true
-                                }
-                            }
+                "contents": {
+                    "denc": {
+                        "bulk": {
+                            "enable": true,
+                            "keyword": "dencbulk"
+                        },
+                        "meta": {
+                            "keyword": "denc",
+                            "enable": true
+                        }
+                    },
+                    "epubedit": {
+                        "archive": {
+                            "enable": true,
+                            "rules": []
+                        },
+                        "meta": {
+                            "keyword": "epubedit3",
+                            "enable": true
+                        },
+                        "trim": {
+                            "prefix": []
+                        }
+                    },
+                    "dims": {
+                        "meta": {
+                            "enable": true,
+                            "maxSourceSize": 2,
+                            "minSourceSize": 0,
+                            "keyword": "dims"
+                        }
+                    },
+                    "unzip": {
+                        "meta": {
+                            "keyword": "unzip",
+                            "enable": true
                         }
                     }
                 }
-            },
-            "mode": {
-                "instant": true
             },
             "enable": true
         }
