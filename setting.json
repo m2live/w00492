@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.3/1;workstack=18",
+        "version": "1.0.3/1;workstack=36",
         "admin": "",
         "defaultHosting": ""
     },
@@ -914,54 +914,145 @@
     "hosting": [
         {
             "listen": "*:80",
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "www.winesoft.co.kr"
-                ]
-            },
-            "name": "158.247.203.38",
+            "name": "www.winesoft.co.kr",
             "functions": {
+                "network": {
+                    "http": {
+                        "backEnd": {
+                            "headers": {
+                                "host": {
+                                    "value": "www.winesoft.co.kr.origin.m2",
+                                    "enable": true
+                                }
+                            },
+                            "session": {
+                                "connectTimeout": 3,
+                                "reuseTimeout": 60,
+                                "receiveTimeout": 300,
+                                "busyCount": 0
+                            },
+                            "health": {
+                                "exclusion": {
+                                    "count": 0
+                                }
+                            }
+                        }
+                    }
+                },
                 "contents": {
-                    "denc": {
-                        "bulk": {
-                            "enable": true,
-                            "keyword": "dencbulk"
-                        },
-                        "meta": {
-                            "keyword": "denc",
-                            "enable": true
-                        }
-                    },
-                    "epubedit": {
-                        "archive": {
-                            "enable": true,
-                            "rules": []
-                        },
-                        "meta": {
-                            "keyword": "epubedit3",
-                            "enable": true
-                        },
-                        "trim": {
-                            "prefix": []
-                        }
-                    },
                     "dims": {
                         "meta": {
+                            "keyword": "dims",
                             "enable": true,
-                            "maxSourceSize": 2,
                             "minSourceSize": 0,
-                            "keyword": "dims"
-                        }
-                    },
-                    "unzip": {
-                        "meta": {
-                            "keyword": "unzip",
-                            "enable": true
+                            "maxSourceSize": 2
                         }
                     }
                 }
             },
+            "origin": {
+                "protocol": "http",
+                "address": [
+                    "127.0.0.1"
+                ]
+            },
+            "enable": true
+        },
+        {
+            "listen": "*:80",
+            "name": "www.winesoft.co.kr.origin.m2",
+            "origin": {
+                "address": [
+                    "127.0.0.1"
+                ],
+                "protocol": "http"
+            },
+            "functions": {
+                "network": {
+                    "http": {
+                        "backEnd": {
+                            "headers": {
+                                "host": {
+                                    "value": "www.winesoft.co.kr.first.origin.m2",
+                                    "enable": true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "mode": {
+                "instant": true
+            },
+            "enable": true
+        },
+        {
+            "listen": "*:80",
+            "origin": {
+                "address": [
+                    "www.google.com"
+                ],
+                "protocol": "http"
+            },
+            "fallbacks": {
+                "enable": true,
+                "matchingList": [
+                    {
+                        "replace": "www.winesoft.co.kr.second.origin.m2/#1",
+                        "resCodes": [
+                            "4xx",
+                            "5xx"
+                        ],
+                        "pattern": "$URL[/(.*)]"
+                    }
+                ]
+            },
+            "functions": {
+                "network": {
+                    "http": {
+                        "backEnd": {
+                            "headers": {
+                                "host": {
+                                    "value": "www.winesoft.co.kr",
+                                    "enable": true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "www.winesoft.co.kr.first.origin.m2",
+            "mode": {
+                "instant": true
+            },
+            "enable": true
+        },
+        {
+            "listen": "*:80",
+            "origin": {
+                "address": [
+                    "www.daum.net"
+                ],
+                "protocol": "http"
+            },
+            "mode": {
+                "instant": true
+            },
+            "functions": {
+                "network": {
+                    "http": {
+                        "backEnd": {
+                            "headers": {
+                                "host": {
+                                    "value": "www.winesoft.co.kr",
+                                    "enable": true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "name": "www.winesoft.co.kr.second.origin.m2",
             "enable": true
         }
     ]
