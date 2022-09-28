@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.0.3/1;workstack=60",
+        "version": "1.0.3/1;workstack=61",
         "admin": "",
         "defaultHosting": ""
     },
@@ -914,16 +914,16 @@
     "hosting": [
         {
             "listen": "*:80",
+            "origin": {
+                "address": [
+                    "127.0.0.1"
+                ],
+                "protocol": "http"
+            },
             "functions": {
                 "network": {
                     "http": {
                         "backEnd": {
-                            "session": {
-                                "busyCount": 0,
-                                "reuseTimeout": 60,
-                                "connectTimeout": 3,
-                                "receiveTimeout": 300
-                            },
                             "headers": {
                                 "host": {
                                     "enable": true,
@@ -934,6 +934,12 @@
                                 "exclusion": {
                                     "count": 0
                                 }
+                            },
+                            "session": {
+                                "reuseTimeout": 60,
+                                "busyCount": 0,
+                                "connectTimeout": 3,
+                                "receiveTimeout": 300
                             }
                         }
                     }
@@ -941,25 +947,25 @@
                 "contents": {
                     "dims": {
                         "meta": {
-                            "maxSourceSize": 2,
                             "enable": true,
+                            "keyword": "dims",
                             "minSourceSize": 0,
-                            "keyword": "dims"
+                            "maxSourceSize": 2
                         }
                     }
                 }
-            },
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "127.0.0.1"
-                ]
             },
             "name": "www.winesoft.co.kr",
             "enable": true
         },
         {
             "listen": "*:80",
+            "origin": {
+                "protocol": "http",
+                "address": [
+                    "127.0.0.1"
+                ]
+            },
             "name": "www.winesoft.co.kr.origin.m2",
             "functions": {
                 "network": {
@@ -978,39 +984,14 @@
             "mode": {
                 "instant": true
             },
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "127.0.0.1"
-                ]
-            },
             "enable": true
         },
         {
             "listen": "*:80",
-            "name": "www.winesoft.co.kr.first.origin.m2",
-            "fallbacks": {
-                "enable": true,
-                "matchingList": [
-                    {
-                        "pattern": "$URL[/(.*)]",
-                        "resCodes": [
-                            "4xx",
-                            "5xx"
-                        ],
-                        "replace": "www.winesoft.co.kr.second.origin.m2/#1"
-                    }
-                ]
-            },
             "mode": {
                 "instant": true
             },
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "www.google.com/test"
-                ]
-            },
+            "name": "www.winesoft.co.kr.first.origin.m2",
             "functions": {
                 "network": {
                     "http": {
@@ -1025,16 +1006,40 @@
                     }
                 }
             },
+            "fallbacks": {
+                "enable": true,
+                "matchingList": [
+                    {
+                        "pattern": "$URL[/(.*)]",
+                        "replace": "www.winesoft.co.kr.second.origin.m2/#1",
+                        "resCodes": [
+                            "4xx",
+                            "5xx"
+                        ]
+                    }
+                ]
+            },
+            "origin": {
+                "address": [
+                    "www.google.com/test",
+                    "www.google.com"
+                ],
+                "protocol": "http"
+            },
             "enable": true
         },
         {
             "listen": "*:80",
+            "mode": {
+                "instant": true
+            },
             "origin": {
                 "protocol": "http",
                 "address": [
                     "www.daum.net"
                 ]
             },
+            "name": "www.winesoft.co.kr.second.origin.m2",
             "functions": {
                 "network": {
                     "http": {
@@ -1049,10 +1054,6 @@
                     }
                 }
             },
-            "mode": {
-                "instant": true
-            },
-            "name": "www.winesoft.co.kr.second.origin.m2",
             "enable": true
         }
     ]
