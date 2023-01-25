@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "1.2.2/1;workstack=72",
+        "version": "1.2.2/1;workstack=73",
         "group": "",
         "branch": "",
         "admin": "",
@@ -1247,17 +1247,14 @@
     },
     "hosting": [
         {
+            "origin": {
+                "address": [
+                    "127.0.0.1"
+                ],
+                "protocol": "http"
+            },
+            "name": "www.winesoft.co.kr",
             "functions": {
-                "contents": {
-                    "dims": {
-                        "meta": {
-                            "enable": true,
-                            "keyword": "dims",
-                            "minSourceSize": 0,
-                            "maxSourceSize": 2
-                        }
-                    }
-                },
                 "network": {
                     "http": {
                         "backEnd": {
@@ -1266,36 +1263,41 @@
                                     "count": 0
                                 }
                             },
-                            "session": {
-                                "connectTimeout": 3,
-                                "receiveTimeout": 300,
-                                "reuseTimeout": 60,
-                                "busyCount": 0
-                            },
                             "headers": {
                                 "host": {
                                     "enable": true,
                                     "value": "www.winesoft.co.kr.origin.m2"
                                 }
+                            },
+                            "session": {
+                                "busyCount": 0,
+                                "receiveTimeout": 300,
+                                "reuseTimeout": 60,
+                                "connectTimeout": 3
                             }
+                        }
+                    }
+                },
+                "contents": {
+                    "dims": {
+                        "meta": {
+                            "maxSourceSize": 2,
+                            "enable": true,
+                            "minSourceSize": 0,
+                            "keyword": "dims"
                         }
                     }
                 }
             },
-            "name": "www.winesoft.co.kr",
+            "enable": true
+        },
+        {
+            "name": "www.winesoft.co.kr.origin.m2",
             "origin": {
                 "protocol": "http",
                 "address": [
                     "127.0.0.1"
                 ]
-            }
-        },
-        {
-            "origin": {
-                "address": [
-                    "127.0.0.1"
-                ],
-                "protocol": "http"
             },
             "functions": {
                 "network": {
@@ -1314,32 +1316,12 @@
             "mode": {
                 "instant": true
             },
-            "name": "www.winesoft.co.kr.origin.m2"
+            "enable": true
         },
         {
-            "fallbacks": {
-                "enable": true,
-                "matchingList": [
-                    {
-                        "resCodes": [
-                            "4xx",
-                            "5xx"
-                        ],
-                        "pattern": "$URL[/(.*)]",
-                        "replace": "www.winesoft.co.kr.second.origin.m2/#1"
-                    }
-                ]
-            },
+            "name": "www.winesoft.co.kr.first.origin.m2",
             "mode": {
                 "instant": true
-            },
-            "name": "www.winesoft.co.kr.first.origin.m2",
-            "origin": {
-                "protocol": "http",
-                "address": [
-                    "www.google.com/test",
-                    "www.google.com"
-                ]
             },
             "functions": {
                 "network": {
@@ -1347,40 +1329,115 @@
                         "backEnd": {
                             "headers": {
                                 "host": {
-                                    "enable": true,
-                                    "value": "www.winesoft.co.kr"
+                                    "value": "www.winesoft.co.kr",
+                                    "enable": true
                                 }
                             }
                         }
                     }
                 }
-            }
+            },
+            "origin": {
+                "address": [
+                    "www.google.com/test",
+                    "www.google.com"
+                ],
+                "protocol": "http"
+            },
+            "fallbacks": {
+                "matchingList": [
+                    {
+                        "pattern": "$URL[/(.*)]",
+                        "resCodes": [
+                            "4xx",
+                            "5xx"
+                        ],
+                        "replace": "www.winesoft.co.kr.second.origin.m2/#1"
+                    }
+                ],
+                "enable": true
+            },
+            "enable": true
         },
         {
-            "mode": {
-                "instant": true
+            "functions": {
+                "network": {
+                    "http": {
+                        "backEnd": {
+                            "headers": {
+                                "host": {
+                                    "value": "www.winesoft.co.kr",
+                                    "enable": true
+                                }
+                            }
+                        }
+                    }
+                }
             },
-            "name": "www.winesoft.co.kr.second.origin.m2",
             "origin": {
                 "protocol": "http",
                 "address": [
                     "www.daum.net"
                 ]
             },
+            "name": "www.winesoft.co.kr.second.origin.m2",
+            "mode": {
+                "instant": true
+            },
+            "enable": true
+        },
+        {
+            "origin": {
+                "protocol": "http",
+                "address": [
+                    "www.google.com"
+                ]
+            },
+            "name": "158.247.203.38",
             "functions": {
                 "network": {
-                    "http": {
-                        "backEnd": {
-                            "headers": {
-                                "host": {
-                                    "enable": true,
-                                    "value": "www.winesoft.co.kr"
+                    "proxy": {
+                        "meta": {
+                            "keyword": "proxy",
+                            "enable": true
+                        }
+                    },
+                    "cache": {
+                        "ttl": {
+                            "custom": [],
+                            "resCode": {
+                                "res3xx": {
+                                    "sec": 300
+                                },
+                                "res4xx": {
+                                    "sec": 30
+                                },
+                                "res5xx": {
+                                    "sec": 30
+                                },
+                                "res2xx": {
+                                    "sec": 1800
+                                },
+                                "noCache": {
+                                    "sec": 5
                                 }
+                            }
+                        },
+                        "cachingKey": {
+                            "acceptEncoding": {
+                                "enable": true
+                            },
+                            "queryString": {
+                                "enable": true
+                            },
+                            "case": {
+                                "enable": true
                             }
                         }
                     }
                 }
-            }
+            },
+            "enable": true
         }
     ]
 }
